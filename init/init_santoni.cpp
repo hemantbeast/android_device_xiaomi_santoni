@@ -154,6 +154,7 @@ void init_variant_properties()
     } else {
         property_set("ro.product.model", "Redmi 4x");
     }
+    property_set("ro.baseband.unknown", "1");
 
 }
 
