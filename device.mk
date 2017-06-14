@@ -295,6 +295,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermal-engine.conf:system/vendor/etc/thermal-engine.conf
 
+# VNDK-SP:
+PRODUCT_PACKAGES += \
+    vndk-sp
+
 # Whitelisted app
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/privapp-permissions-qti.xml:system/etc/permissions/privapp-permissions-qti.xml \
