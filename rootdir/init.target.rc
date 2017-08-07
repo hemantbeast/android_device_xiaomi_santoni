@@ -155,7 +155,7 @@ service wcnss-service /vendor/bin/wcnss_service
     group system wifi radio
     oneshot
 
-service imsstarter /system/bin/sh /system/etc/init.qti.ims.sh
+service imsstarter /vendor/bin/init.qti.ims.sh
     class main
     oneshot
 
