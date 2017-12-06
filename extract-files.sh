@@ -53,5 +53,6 @@ fi
 setup_vendor "$DEVICE" "$VENDOR" "$AICP_ROOT"
 
 extract "$MY_DIR"/proprietary-files.txt "$SRC"
+extract "$MY_DIR"/proprietary-files-qc.txt "$SRC"
 
 "$MY_DIR"/setup-makefiles.sh
