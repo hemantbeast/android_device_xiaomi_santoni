@@ -194,6 +194,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     lights.msm8937
 
+# IMS
+PRODUCT_PACKAGES += \
+    ims-ext-common
+
 # Media 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
