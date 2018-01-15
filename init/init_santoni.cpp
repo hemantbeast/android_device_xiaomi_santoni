@@ -33,9 +33,11 @@
 #include <sstream>
 #include <sys/sysinfo.h>
 
+#include <android-base/properties.h>
+#include <android-base/logging.h>
+
 #include "vendor_init.h"
 #include "property_service.h"
-#include "log.h"
 #include "util.h"
 
 char const *heapstartsize;
@@ -44,6 +46,10 @@ char const *heapsize;
 char const *heapminfree;
 char const *heapmaxfree;
 char const *large_cache_height;
+
+using android::base::GetProperty;
+using android::init::property_set;
+using android::init::import_kernel_cmdline;
 
 static std::string board_id;
 
@@ -104,14 +110,14 @@ void check_device()
         heapsize = "512m";
         heapminfree = "4m";
         heapmaxfree = "8m";
-	large_cache_height = "2048";
+	    large_cache_height = "2048";
     } else if (sys.totalram > 2048ull * 1024 * 1024) {
         // from - phone-xxhdpi-3072-dalvik-heap.mk
         heapstartsize = "8m";
         heapgrowthlimit = "288m";
         heapsize = "768m";
         heapminfree = "512k";
-	heapmaxfree = "8m";
+	    heapmaxfree = "8m";
         large_cache_height = "1024";
     } else {
         // from - phone-xxhdpi-2048-dalvik-heap.mk
@@ -121,14 +127,11 @@ void check_device()
         heapminfree = "2m";
         heapmaxfree = "8m";
         large_cache_height = "1024";
-   }
+    }
 }
 
 void init_variant_properties()
 {
-    if (property_get("ro.cm.device") != "santoni")
-        return;
-
     import_kernel_cmdline(0, import_cmdline);
     
     //set board
@@ -144,7 +147,7 @@ void init_variant_properties()
     } else if (board_id == "S88536CA2") {
         property_set("ro.build.display.wtid", "SW_S88536CA2_V028_M11_XM_A13N_USR_TEST");
         property_set("ro.product.subproject", "S88536CA2"); 
-   }
+    }
 
    if (board_id == "S88536CA2"){
         property_set("ro.product.model", "Redmi 4");
