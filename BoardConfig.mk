@@ -225,6 +225,8 @@ USE_OPENGL_RENDERER := true
 # Sensor
 USE_SENSOR_MULTI_HAL := true
 
+PRODUCT_BOOT_JARS += telephony-ext
+
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
 BOARD_SEPOLICY_DIRS += $(LOCAL_PATH)/sepolicy
