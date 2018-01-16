@@ -198,7 +198,8 @@ PRODUCT_PACKAGES += \
 
 # IMS
 PRODUCT_PACKAGES += \
-    ims-ext-common
+    ims-ext-common \
+    telephony-ext
 
 # Media 
 PRODUCT_COPY_FILES += \
