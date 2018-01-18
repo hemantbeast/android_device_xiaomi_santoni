@@ -22,7 +22,9 @@ $(call inherit-product, vendor/xiaomi/santoni/santoni-vendor.mk)
 $(call inherit-product, $(LOCAL_PATH)/hidl-hals.mk)
 
 # Overlays
-DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
+DEVICE_PACKAGE_OVERLAYS += \
+    $(LOCAL_PATH)/overlay \
+    $(LOCAL_PATH)/overlay-lineage
 
 # Screen density
 PRODUCT_AAPT_CONFIG := normal
