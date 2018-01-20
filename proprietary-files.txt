@@ -631,11 +631,8 @@ vendor/lib64/libwfduibcsrcinterface.so
 # USB
 etc/firmware/ice40.bin
 
-# Wi-Fi
-bin/cnss-daemon:vendor/bin/cnss-daemon
-bin/cnss_diag:vendor/bin/cnss_diag
-bin/wcnss_service:vendor/bin/wcnss_service
-bin/fstman:vendor/bin/fstman
+# Wi-Fi - from tissot (Mi A1)
+vendor/bin/wcnss_service|828ff8b29fcc6a59644a7b9baf02f29eafe034a8
 
 # To-Do
 vendor/lib/libaudioparsers.so
