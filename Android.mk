@@ -99,7 +99,7 @@ $(RFS_MSM_ADSP_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	$(hide) ln -sf /persist/rfs/shared $@/shared
 	$(hide) ln -sf /persist/hlos_rfs/shared $@/hlos
 	$(hide) ln -sf /firmware $@/readonly/firmware
-        $(hide) ln -sf /vendor/firmware $@/readonly/vendor/firmware
+	$(hide) ln -sf /vendor/firmware $@/readonly/vendor/firmware
 
 RFS_MSM_MPSS_SYMLINKS := $(TARGET_OUT_VENDOR)/rfs/msm/mpss/
 $(RFS_MSM_MPSS_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
@@ -111,7 +111,7 @@ $(RFS_MSM_MPSS_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	$(hide) ln -sf /persist/rfs/shared $@/shared
 	$(hide) ln -sf /persist/hlos_rfs/shared $@/hlos
 	$(hide) ln -sf /firmware $@/readonly/firmware
-        $(hide) ln -sf /vendor/firmware $@/readonly/vendor/firmware
+	$(hide) ln -sf /vendor/firmware $@/readonly/vendor/firmware
 
 # Create a link for the WCNSS config file, which ends up as a writable
 # version in /data/misc/wifi
