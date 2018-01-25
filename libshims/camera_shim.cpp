@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The CyanogenMod Project
+ * Copyright (C) 2017 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,66 @@
 
 #include <string>
 
-// GraphicBuffer(uint32_t inWidth, uint32_t inHeight, PixelFormat inFormat,
-//               uint32_t inUsage, std::string requestorName = "<Unknown>");
-extern "C" void _ZN7android13GraphicBufferC1EjjijNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE(
-    uint32_t inWidth, uint32_t inHeight, int inFormat, uint32_t inUsage,
-    std::string requestorName);
+#include <utils/Errors.h>
 
-extern "C" void _ZN7android13GraphicBufferC1Ejjij(
-    uint32_t inWidth, uint32_t inHeight, int inFormat, uint32_t inUsage) {
-  std::string requestorName = "<Unknown>";
-  _ZN7android13GraphicBufferC1EjjijNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE(
-      inWidth, inHeight, inFormat, inUsage, requestorName);
+#include <ui/GraphicBuffer.h>
+
+#include <EGL/egl.h>
+#include <EGL/eglext.h>
+
+#include "gui/DisplayEventReceiver.h"
+#include <gui/IDisplayEventConnection.h>
+#include <gui/ISurfaceComposer.h>
+
+#include <private/gui/ComposerService.h>
+
+#include <private/gui/BitTube.h>
+
+extern "C" void _ZN7android20DisplayEventReceiverC1Ev() {}
+
+EGLAPI const char* eglQueryStringImplementationANDROID(EGLDisplay dpy, EGLint name);
+
+extern "C" void _Z35eglQueryStringImplementationANDROIDPvi(EGLDisplay dpy, EGLint name){
+    eglQueryStringImplementationANDROID(dpy, name);
 }
+
+extern "C" void _ZN7android13GraphicBufferC1EjjijjjP13native_handleb(
+        const native_handle_t* handle,
+        android::GraphicBuffer::HandleWrapMethod method,
+        uint32_t width,
+        uint32_t height,
+        int format,
+        uint32_t layerCount,
+        uint64_t usage,
+        uint32_t stride);
+
+extern "C" void _ZN7android13GraphicBufferC1EjjijjP13native_handleb(
+        uint32_t inWidth,
+        uint32_t inHeight,
+        int inFormat,
+        uint32_t inUsage,
+        uint32_t inStride,
+        native_handle_t* inHandle,
+        bool keepOwnership)
+{
+    android::GraphicBuffer::HandleWrapMethod inMethod =
+        (keepOwnership ? android::GraphicBuffer::TAKE_HANDLE : android::GraphicBuffer::WRAP_HANDLE);
+    _ZN7android13GraphicBufferC1EjjijjjP13native_handleb(inHandle, inMethod, inWidth, inHeight,
+        inFormat, static_cast<uint32_t>(1), static_cast<uint64_t>(inUsage), inStride);
+}
+
+namespace android {
+
+DisplayEventReceiver::DisplayEventReceiver() {
+    status_t err;
+    sp<ISurfaceComposer> sf(ComposerService::getComposerService());
+    if (sf != NULL) {
+        mEventConnection = sf->createDisplayEventConnection(ISurfaceComposer::eVsyncSourceApp);
+        if (mEventConnection != NULL) {
+            mDataChannel = std::make_unique<gui::BitTube>();
+            err = mEventConnection->stealReceiveChannel(mDataChannel.get());
+        }
+    }
+}
+
+}; // namespace android
