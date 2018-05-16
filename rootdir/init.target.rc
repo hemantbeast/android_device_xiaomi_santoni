@@ -35,6 +35,7 @@ on early-init
 
 on fs
     mount_all /vendor/etc/fstab.qcom
+    swapon_all /vendor/etc/fstab.qcom
 
     mkdir /persist/data 0700 system system
     mkdir /persist/bms 0700 root system
@@ -106,6 +107,9 @@ service qrngp /system/bin/qrngp -f
    group root
    oneshot
    disabled
+
+on property:sys.boot_completed=1
+   start qrngp
 
 service qseecomd /vendor/bin/qseecomd
    class core
@@ -183,7 +187,7 @@ service ims_rtp_daemon /system/vendor/bin/ims_rtp_daemon
    writepid /dev/cpuset/system-background/tasks
    disabled
 
-service imsrcsservice /system/vendor/bin/imsrcsd
+service vendor.imsrcsservice /system/vendor/bin/imsrcsd
    class main
    user system
    group radio diag inet log
@@ -192,7 +196,7 @@ service imsrcsservice /system/vendor/bin/imsrcsd
 
 on property:vendor.ims.DATA_DAEMON_STATUS=1
    start ims_rtp_daemon
-   start imsrcsservice
+   start vendor.imsrcsservice
 
 service hbtp /system/vendor/bin/hbtp_daemon
     class main
@@ -406,8 +410,3 @@ service ppd /vendor/bin/mm-pp-dpps
     socket pps stream 0660 system system
     disabled
 
-on property:sys.boot_completed=1
-    start qrngp
-
-    # Enable ZRAM on boot_complete
-    swapon_all /vendor/etc/fstab.qcom

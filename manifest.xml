@@ -36,15 +36,6 @@
         </interface>
     </hal>
     <hal format="hidl">
-        <name>android.hardware.broadcastradio</name>
-        <transport arch="32">passthrough</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IBroadcastRadioFactory</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
         <name>android.hardware.camera.provider</name>
         <transport arch="32+64">passthrough</transport>
         <version>2.4</version>
@@ -53,7 +44,7 @@
             <instance>legacy/0</instance>
         </interface>
     </hal>
-    <hal format="hidl">
+   <hal format="hidl">
         <name>android.hardware.cas</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
@@ -183,7 +174,7 @@
             <name>IOmxStore</name>
             <instance>default</instance>
         </interface>
-    </hal>
+    </hal> 
     <hal format="hidl">
         <name>android.hardware.memtrack</name>
         <transport>hwbinder</transport>
@@ -327,7 +318,7 @@
             <instance>dpmQmiService</instance>
         </interface>
     </hal>
-    <hal format="hidl">
+   <hal format="hidl">
         <name>com.qualcomm.qti.imscmservice</name>
         <transport>hwbinder</transport>
         <impl level="generic"></impl>
@@ -336,9 +327,9 @@
             <name>IImsCmService</name>
             <instance>qti.ims.connectionmanagerservice</instance>
         </interface>
-    </hal>
-    <!-- IMS UCE Service -->
-    <hal format="hidl">
+   </hal>
+   <!-- IMS UCE Service -->
+   <hal format="hidl">
         <name>com.qualcomm.qti.uceservice</name>
         <transport>hwbinder</transport>
         <impl level="generic"></impl>
@@ -575,15 +566,6 @@
         <version>1.0</version>
         <interface>
             <name>IQtiVoicePrintService</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.lineage.power</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>ILineagePower</name>
             <instance>default</instance>
         </interface>
     </hal>
